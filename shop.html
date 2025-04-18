@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Exquisite Indian Artistry</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #555;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav li {
+            margin-left: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #555;
+        }
+        .hero {
+            background-color: #fff;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        .hero-image-container {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .hero-image {
+            width: 100%;
+            display: block;
+            object-fit: cover; /* Or 'contain' depending on image */
+            max-height: 400px;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .hero p {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .shop-now-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #d4a373; /* Earthy tone */
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .shop-now-button:hover {
+            background-color: #b8860b;
+        }
+        .trending-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        .trending-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #fdfdfd;
+            cursor: pointer; /* Indicate it's clickable */
+        }
+        .product-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .product-category {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            color: #d4a373;
+            font-weight: bold;
+        }
+        .shop-all-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .shop-all-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .shop-all-button:hover {
+            background-color: #333;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.8em;
+            color: #777;
+            border-top: 1px solid #eee;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">BazaarBytes</div>
+            <nav>
+                <ul>
+                    <li><a href="/index2.html">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Artisans</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-image-container">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQGy-MNpml9r2w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1689236191195?e=2147483647&v=beta&t=DEuU36ICUed2gI-R8G8CWlhVfgXyfmS4eA2b6x_Cjn4" alt="Handcrafted Textiles" class="hero-image">
+            </div>
+            <h1>Celebrate the Rich Heritage of Indian Craftsmanship</h1>
+            <p>Discover unique, handcrafted treasures created with passion and skill by artisans across India. From vibrant textiles to intricate jewelry and timeless pottery, each piece tells a story.</p>
+            <a href="#" class="shop-now-button">Explore Our Collection</a>
+        </section>
+
+        
+
+        <section class="trending-section">
+            <h2>Trending Artisan Crafts</h2>
+            <div class="trending-grid">
+                <div class="product-card">
+                    <a href="block-printed-fabrics.html">
+                        <div class="product-image-container">
+                            <img src="https://redearthindia.com/cdn/shop/products/sanganeri2-2_grande.png?v=1652969575" alt="Block Printed Fabrics" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Block Printed Fabrics</h3>
+                            <p class="product-category">Textiles</p>
+                            <p class="product-price">₹ 450 onwards</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="terracotta-pottery.html">
+                        <div class="product-image-container">
+                            <img src="https://exclusivelane.com/cdn/shop/files/EL-004-034_A_800x.jpg?v=1694077974" alt="Terracotta Pottery" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Hand-Painted Terracotta</h3>
+                            <p class="product-category">Pottery & Ceramics</p>
+                            <p class="product-price">₹ 200 onwards</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="silver-filigree-jewelry.html">
+                        <div class="product-image-container">
+                            <img src="https://okhai.org/cdn/shop/products/NS064_3.jpg?v=1743238545" alt="Silver Filigree Jewelry" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Silver Filigree Earrings</h3>
+                            <p class="product-category">Jewelry</p>
+                            <p class="product-price">₹ 800 onwards</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="wood-carvings.html">
+                        <div class="product-image-container">
+                            <img src="https://theindiacrafthouse.com/cdn/shop/products/Exclusive_20Karnataka_20Wood_20Carving_20Curio_20-_20Peacock_20-_20KEWC02B_201@2x.jpg" alt="Wood Carvings" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Intricate Wood Carvings</h3>
+                            <p class="product-category">Home Decor</p>
+                            <p class="product-price">₹ 600 onwards</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="handwoven-shawls.html">
+                        <div class="product-image-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKJOgOHNLe3ViwDNAgrYSklq9zZi7_NqY2TQ&s" alt="Handwoven Shawls" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Handwoven Silk Shawls</h3>
+                            <p class="product-category">Textiles & Wearables</p>
+                            <p class="product-price">₹ 1200 onwards</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="product-card" >
+                    <a href="blue-pottery.html">
+                        <div class="product-image-container">
+                            
+                            <img src="https://cdn.shopify.com/s/files/1/0633/1750/8316/files/1_2a9f8295-4e31-40ff-bdaa-55d13711a0a2_480x480.png?v=1666959147" alt="Blue Pottery" class="product-image" >
+                        </div>
+                        <div class="product-info" >
+                            <h3 class="product-title">Jaipur Blue Pottery</h3>
+                            <p class="product-category">Pottery & Ceramics</p>
+                            <p class="product-price">₹ 350 onwards</p>
+                        </div>
+                    </a>
+                </div>
+            
+            </div>
+            <div class="shop-all-button-container">
+                <a href="#" class="shop-all-button">See All Products</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 IndianCraft - Celebrating the Art of India</p>
+        </footer>
+    </div>
+</body>
+</html>

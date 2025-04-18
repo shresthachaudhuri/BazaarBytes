@@ -1,0 +1,46 @@
+{
+    "greetings": {
+        "patterns": ["hello", "hi", "hey", "greetings", "good morning", "good afternoon", "howdy"],
+        "responses": ["Hello!I'm Friday..... How can I assist you with your cultural shopping today?", "Hi there!I'm Friday.... Welcome to our cultural e-commerce platform. What do you need?", "Hey!I'm Friday..... Ready to explore global cultures? How may I help?", "Good day!I'm Friday..... What cultural treasure are you looking for today?"]
+    },
+    "farewells": {
+        "patterns": ["bye", "goodbye", "see you", "exit", "quit", "later"],
+        "responses": ["Goodbye! Enjoy your cultural journey!", "See you later! Thanks for choosing us.", "Farewell! Visit again for more cultural finds.", "Take care! Come back soon for more cultural inspiration."]
+    },
+    "product_inquiries": {
+        "patterns": ["what products", "items available", "cultural goods", "sell", "stock"],
+        "responses": ["We sell a vast array of cultural products: traditional art, handicrafts, music, books, clothing, and more from around the world.", "Our inventory includes authentic cultural items like tribal jewelry, vintage textiles, and regional music.", "Explore our collection of cultural apparel, decorative arts, and musical instruments from diverse cultures."]
+    },
+    "order_status": {
+        "patterns": ["track order", "order status", "where’s my package", "delivery update"],
+        "responses": ["To track your order, please provide your order number. I’ll check its status.", "Need order details? Share your order ID, and I’ll assist.", "Let me look into your delivery. Please provide your order information."]
+    },
+    "payment_issues": {
+        "patterns": ["payment failed", "can’t pay", "payment error", "charge problem"],
+        "responses": ["Sorry about the payment issue. Which method are you using? I can help troubleshoot.", "Payment problems? Check your card details or try another method.", "Let’s fix your payment error. What message did you see?"]
+    },
+    "returns_refunds": {
+        "patterns": ["return item", "refund process", "exchange policy", "return rules"],
+        "responses": ["Returns are accepted within 30 days. Provide your order number for assistance.", "For refunds or exchanges, contact support with your order details.", "Visit our returns page for instructions. Need help with steps?"]
+    },
+    "account_help": {
+        "patterns": ["forgot password", "login problem", "account creation", "access issue"],
+        "responses": ["Use the ‘Forgot Password’ link to reset it. Need further help?", "Login issues? Reset your password or contact support with your email.", "To create an account, click ‘Sign Up’ and fill in the details."]
+    },
+    "shipping": {
+        "patterns": ["shipping cost", "delivery time", "international shipping", "ship to"],
+        "responses": ["Shipping costs vary by location and order. See rates at checkout.", "Delivery takes 3-5 days domestically, longer internationally.", "Yes, we ship worldwide! Check rates and times at checkout."]
+    },
+    "promotions": {
+        "patterns": ["discounts", "offers", "coupons", "deals"],
+        "responses": ["Check our promotions page for current discounts on cultural products!", "We have seasonal offers on cultural items. Visit our deals section.", "Use code CULTURE15 for 15% off your first order!"]
+    },
+    "feedback": {
+        "patterns": ["feedback", "suggestions", "complaints", "rate service"],
+        "responses": ["We appreciate your feedback! Share your thoughts on our service.", "Suggestions or complaints? Email support@culturalstore.com.", "How would you rate your experience? Your input matters!"]
+    },
+    "default": {
+        "patterns": ["help", "assist", "support", "need help", "what can you do"],
+        "responses": ["How can I assist you today? Ask about products, orders, or accounts!", "I’m here to help with any cultural e-commerce query. What’s your issue?", "Need support? Please provide more details, and I’ll assist."]
+    }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>TradeCommerce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <header>
+    <div class="logo">BazaarBytes</div>
+
+    <nav class="top-nav">
+        <ul >
+          <li><a href="shop.html">Shop </a></li>
+          <li><a href="artisans.html">Artisans</a></li>
+          <li><a href="sustainability.html">Sustainability</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+
+        </ul>
+      </nav>
+ <div id="welcome-message" style="margin-top: 17px; font-size: 1.2em; margin-left: 19%;"></div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Uplift Craft, Empower Communities</h1>
+      <p>Shop consciously. Support tradition. Lead sustainability.</p>
+      <a href="collections.html">
+        <button class="btn">Explore Collections</button>
+      </a>
+      <div class="seller-actions" style="margin-top: 20px;">
+        <a href="/upload-product.html" class="upload-button" style="background-color: #5cb85c; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;">Upload Product</a>
+      </div>
+     
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 TradeCommerce. All rights reserved.
+  </footer>
+
+</body>
+
+<script>
+  // Get the user's name from the query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const userName = urlParams.get('name');
+
+  // Display the welcome message if the name exists
+  if (userName) {
+    document.getElementById('welcome-message').textContent = `Welcome back, ${userName}!`;
+  }
+</script>
+<script src="app.js"></script>
+</html>
