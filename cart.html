@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - BazaarBytes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 10px;
+        }
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .cart-item-details p {
+            margin: 4px 0;
+        }
+        .cart-item-qty input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .remove-btn {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background-color: #c9302c;
+        }
+        .total-price {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 6px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        .checkout-btn:hover {
+            background-color: #c58b5f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Your Shopping Cart</h1>
+
+        <div id="cart-items">
+            <!-- JS will dynamically populate this -->
+        </div>
+
+        <p class="total-price">Total: ₹<span id="total-price">0</span></p>
+
+        <a id="checkout-btn" class="checkout-btn" href="#">Proceed to Checkout</a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const userName = urlParams.get('name');
+        console.log("Cart Page userId:", userId);
+        console.log("Cart Page name:", userName);
+
+        // Example Fetch Cart Items - Adjust according to your backend
+        fetch(`/api/cart/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                const cartItemsContainer = document.getElementById('cart-items');
+                const totalPriceElem = document.getElementById('total-price');
+                let total = 0;
+
+                if(data.length === 0){
+                    cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item');
+                    itemDiv.innerHTML = `
+                        <img src="${item.imagePath || 'placeholder.jpg'}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <p><strong>${item.name}</strong></p>
+                            <p>Price: ₹${item.price}</p>
+                            <p>Quantity: ${item.qty}</p>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart('${item._id}')">Remove</button>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                    total += item.price * item.qty;
+                });
+
+                totalPriceElem.textContent = total;
+            })
+            .catch(err => {
+                console.error('Error loading cart:', err);
+            });
+
+        // Remove item from cart
+        function removeFromCart(itemId) {
+            fetch(`/api/cart/remove/${itemId}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    alert('Item removed');
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error('Error removing item:', err);
+                });
+        }
+
+        // Fix top nav links (if nav exists)
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http')) {
+                    link.setAttribute('href', `${href}?userId=${userId}&name=${userName}`);
+                }
+            });
+
+            // Fix Checkout button
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if(checkoutBtn){
+                checkoutBtn.setAttribute('href', `checkout.html?userId=${userId}&name=${userName}`);
+            }
+        });
+    </script>
+
+</body>
+</html>

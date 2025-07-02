@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terracotta Pottery - BazaarBytes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #fdfdfd;
+            cursor: pointer; /* Added to show clickable */
+            transition: transform 0.2s ease-in-out; /* Smooth hover transition */
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .product-price {
+            color: #d4a373;
+            font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BazaarBytes</div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index2.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Terracotta Pottery</h1>
+        <div class="product-grid" id="terracotta-pottery-grid">
+            <!-- Products will load here dynamically -->
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 TradeCommerce. All rights reserved.
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const userName = urlParams.get('name');
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProductsByCategory('Terracotta Pottery', 'terracotta-pottery-grid');
+    
+            // Fix nav links to preserve userId and name
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http')) {
+                    link.setAttribute('href', `${href}?userId=${userId}&name=${userName}`);
+                }
+            });
+        });
+    
+        async function fetchProductsByCategory(category, gridId) {
+            try {
+                const response = await fetch(`/api/products/${encodeURIComponent(category)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const products = await response.json();
+                displayProducts(products, gridId);
+            } catch (error) {
+                console.error('Could not fetch products:', error);
+                document.getElementById(gridId).innerHTML = '<p class="error-message">Could not load products for this category.</p>';
+            }
+        }
+    
+        function displayProducts(products, gridId) {
+            const productGrid = document.getElementById(gridId);
+            productGrid.innerHTML = '';
+    
+            if (products.length === 0) {
+                productGrid.innerHTML = '<p>No Terracotta Pottery available yet.</p>';
+                return;
+            }
+    
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+    
+                // Pass userId and name to buy-product.html
+                productCard.addEventListener('click', () => {
+                    window.location.href = `buy-product.html?id=${product._id}&userId=${userId}&name=${userName}`;
+                });
+    
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('product-image-container');
+                const image = document.createElement('img');
+                image.src = product.imagePath;
+                image.alt = product.name;
+                image.classList.add('product-image');
+                imageContainer.appendChild(image);
+    
+                const info = document.createElement('div');
+                info.classList.add('product-info');
+                const title = document.createElement('h3');
+                title.classList.add('product-title');
+                title.textContent = product.name;
+                const price = document.createElement('p');
+                price.classList.add('product-price');
+                price.textContent = `₹${product.price}`;
+    
+                info.appendChild(title);
+                info.appendChild(price);
+    
+                productCard.appendChild(imageContainer);
+                productCard.appendChild(info);
+    
+                productGrid.appendChild(productCard);
+            });
+        }
+    </script>
+    
+</body>
+</html>

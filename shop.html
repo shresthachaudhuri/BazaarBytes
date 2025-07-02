@@ -183,7 +183,8 @@
             <div class="logo">BazaarBytes</div>
             <nav>
                 <ul>
-                    <li><a href="/index2.html">Home</a></li>
+                    <li><a id="home-link" href="#">Home</a></li>
+
                     <li><a href="#">Products</a></li>
                     <li><a href="#">Artisans</a></li>
                     <li><a href="#">About Us</a></li>
@@ -207,7 +208,9 @@
             <h2>Trending Artisan Crafts</h2>
             <div class="trending-grid">
                 <div class="product-card">
-                    <a href="block-printed-fabrics.html">
+                    <a href="block-printed-fabrics.html" id="blockPrintedLink">
+                       
+
                         <div class="product-image-container">
                             <img src="https://redearthindia.com/cdn/shop/products/sanganeri2-2_grande.png?v=1652969575" alt="Block Printed Fabrics" class="product-image">
                         </div>
@@ -219,7 +222,7 @@
                     </a>
                 </div>
                 <div class="product-card">
-                    <a href="terracotta-pottery.html">
+                    <a href="terracotta-pottery.html" id="terracottapotteryLink">
                         <div class="product-image-container">
                             <img src="https://exclusivelane.com/cdn/shop/files/EL-004-034_A_800x.jpg?v=1694077974" alt="Terracotta Pottery" class="product-image">
                         </div>
@@ -266,8 +269,50 @@
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="product-card" >
+                    <a href="Cultural Instruments.html">
+                        <div class="product-image-container">
+                            
+                            <img src="https://i.pinimg.com/736x/5e/cc/64/5ecc64aed0d6b19d45f7f3b914e57b05.jpg" alt="Cultural Instruments" class="product-image" >
+                        </div>
+                        <div class="product-info" >
+                            <h3 class="product-title">Musical Instruments</h3>
+                            <p class="product-category">Classical tools & Devices</p>
+                            <p class="product-price">₹ 3500 onwards</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="product-card" >
+                    <a href="Artisan Leather Goods.html">
+                        <div class="product-image-container">
+                            
+                            <img src="https://i.pinimg.com/736x/c0/8c/20/c08c20009b0a741481454e978fb13083.jpg" alt="Leather Goods" class="product-image" >
+                        </div>
+                        <div class="product-info" >
+                            <h3 class="product-title">Leather Goods</h3>
+                            <p class="product-category">Leather Products for daily Use</p>
+                            <p class="product-price">₹ 1500 onwards</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="product-card" >
+                    <a href="Traditional Natural Skincare.html">
+                        <div class="product-image-container">
+                            
+                            <img src="https://i.pinimg.com/736x/be/cc/dd/beccdd3721d5dadd8703c87510c20d08.jpg" alt="Natural Skincare" class="product-image" >
+                        </div>
+                        <div class="product-info" >
+                            <h3 class="product-title">Traditional Natural Skincare</h3>
+                            <p class="product-category">Natural Skincare Products</p>
+                            <p class="product-price">₹ 500 onwards</p>
+                        </div>
+                    </a>
+                </div>
+
+                   <div class="product-card" >
                     <a href="blue-pottery.html">
                         <div class="product-image-container">
                             
@@ -291,5 +336,31 @@
             <p>&copy; 2025 IndianCraft - Celebrating the Art of India</p>
         </footer>
     </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const userName = urlParams.get('name');
+      
+        document.addEventListener('DOMContentLoaded', () => {
+    const blockPrintedLink = document.getElementById('blockPrintedLink');
+    blockPrintedLink.href = `block-printed-fabrics.html?userId=${userId}&name=${userName}`;
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const blockPrintedLink = document.getElementById('terracottapotteryLink');
+    blockPrintedLink.href = `terracotta-pottery.html?userId=${userId}&name=${userName}`;
+});
+        const homeLink = document.getElementById('home-link');
+        if(userId && userName){
+            homeLink.href = `index2.html?userId=${userId}&name=${userName}`;
+        } else {
+            homeLink.href = 'index2.html'; // fallback if no user data
+        }
+      </script>
+      
+        
+      
+  
+      
 </body>
 </html>

@@ -1,30 +1,39 @@
-# main.py
 import os
+import sys
 import logging
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
+
+# Add Backend folder to system path to import chatbot
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Backend'))
+
+# Now, import the chatbot after appending the Backend folder to the sys path
 from chatbot import CulturalEcommerceChatbot
 
-# ——— Setup paths ———
-frontend_path = os.path.join(os.path.dirname(__file__), "Frontend")
-frontend_path = r"C:\Users\sriji\BazaarBytes-main\Frontend"
+# Define correct Frontend path (Mac-friendly)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "Frontend")
 
-
-# ——— FastAPI App Setup ———
+# FastAPI App Setup
 app = FastAPI()
-app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 
-from flask import render_template
+# Serve static files (CSS, JS, etc.)
+app.mount("/static", StaticFiles(directory="/Users/shresthachaudhuri/Documents/BazaarBytes/Frontend"), name="static")
 
-@app.route('/support')
-def support():
-    return render_template('support.html')
+# Serve HTML files
+@app.get("/", response_class=HTMLResponse)
+def get_index():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index1.html"))
 
-# ——— Chatbot Instance ———
+@app.get("/support", response_class=HTMLResponse)
+def get_support():
+    return FileResponse(os.path.join(FRONTEND_DIR, "support.html"))
+
+# Chatbot Instance
 chatbot = CulturalEcommerceChatbot()
 
-# ——— WebSocket Chat Endpoint ———
+# WebSocket Chat Endpoint
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -45,7 +54,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 response = await chatbot.handle_message(user_id, data)
             except Exception:
                 logging.error("Error generating response", exc_info=True)
-                response = {"error": "Internal error"}
+                response = {"message": "Oops! Something went wrong."}
 
             try:
                 await websocket.send_json(response)
@@ -63,7 +72,7 @@ async def websocket_endpoint(websocket: WebSocket):
     finally:
         await websocket.close()
 
-# ——— Run App ———
+# Run the app
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

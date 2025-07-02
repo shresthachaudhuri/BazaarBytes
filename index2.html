@@ -6,7 +6,24 @@
   <link rel="stylesheet" href="style.css">
   <title>TradeCommerce</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
-
+  <style>
+    .cart-icon {
+      position: relative;
+      display: inline-block;
+      margin-left: 50px;
+      cursor: pointer;
+    }
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 3px 7px;
+      font-size: 12px;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,16 +31,21 @@
     <div class="logo">BazaarBytes</div>
 
     <nav class="top-nav">
-        <ul >
-          <li><a href="shop.html">Shop </a></li>
+        <ul>
+          <li><a href="shop.html">Shop</a></li>
           <li><a href="artisans.html">Artisans</a></li>
           <li><a href="sustainability.html">Sustainability</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-
         </ul>
-      </nav>
- <div id="welcome-message" style="margin-top: 17px; font-size: 1.2em; margin-left: 19%;"></div>
+    </nav>
+
+    <!-- Cart icon directly opens cart.html on click -->
+    <div class="cart-icon" id="cart-icon">
+      🛒 Cart <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <div id="welcome-message" style="margin-top: 17px; font-size: 1.2em; margin-left: 19%;"></div>
   </header>
 
   <section class="hero">
@@ -36,7 +58,6 @@
       <div class="seller-actions" style="margin-top: 20px;">
         <a href="/upload-product.html" class="upload-button" style="background-color: #5cb85c; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;">Upload Product</a>
       </div>
-     
     </div>
   </section>
 
@@ -44,17 +65,38 @@
     &copy; 2025 TradeCommerce. All rights reserved.
   </footer>
 
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId');
+    const userName = urlParams.get('name');
+    console.log("Home Page userId:", userId);
+
+    // Fetch cart count
+    function updateCartCount() {
+        fetch(`/api/cart/count?userId=${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                const cartCountElement = document.getElementById('cart-count');
+                if(cartCountElement) {
+                    cartCountElement.textContent = data.count || 0;
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching cart count:', err);
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCartCount();
+
+        // Clicking the Cart icon opens cart.html with userId and name
+        const cartIcon = document.getElementById('cart-icon');
+        if(cartIcon){
+            cartIcon.addEventListener('click', () => {
+                window.location.href = `cart.html?userId=${userId}&name=${userName}`;
+            });
+        }
+    });
+  </script>
 </body>
-
-<script>
-  // Get the user's name from the query parameter
-  const urlParams = new URLSearchParams(window.location.search);
-  const userName = urlParams.get('name');
-
-  // Display the welcome message if the name exists
-  if (userName) {
-    document.getElementById('welcome-message').textContent = `Welcome back, ${userName}!`;
-  }
-</script>
-<script src="app.js"></script>
 </html>

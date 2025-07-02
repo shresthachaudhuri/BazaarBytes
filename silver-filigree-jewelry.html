@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silver Filigree Jewelry - BazaarBytes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #fdfdfd;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .product-price {
+            color: #d4a373;
+            font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BazaarBytes</div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index2.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Silver Filigree Jewelry</h1>
+        <div class="product-grid" id="silver-filigree-jewelry-grid">
+            <!-- Products will load here -->
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 TradeCommerce. All rights reserved.
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const userName = urlParams.get('name');
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProductsByCategory('Silver Filigree Jewelry', 'silver-filigree-jewelry-grid');
+    
+            // Preserve userId & name in nav links
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http')) {
+                    link.setAttribute('href', `${href}?userId=${userId}&name=${userName}`);
+                }
+            });
+        });
+    
+        async function fetchProductsByCategory(category, gridId) {
+            try {
+                const response = await fetch(`/api/products/${encodeURIComponent(category)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const products = await response.json();
+                displayProducts(products, gridId);
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById(gridId).innerHTML = '<p>Error loading products.</p>';
+            }
+        }
+    
+        function displayProducts(products, gridId) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = products.length ? '' : '<p>No Silver Filigree Jewelry available yet.</p>';
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                // Pass userId and name to buy-product.html
+                card.onclick = () => window.location.href = `buy-product.html?id=${p._id}&userId=${userId}&name=${userName}`;
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${p.imagePath}" alt="${p.name}" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${p.name}</h3>
+                        <p class="product-price">₹${p.price}</p>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+    
+</body>
+</html>

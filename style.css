@@ -9,18 +9,19 @@
     color: #333;
   }
   header {
+    height: 80px;
     background-color: #fff;
-    padding: 20px 40px;
+    padding: 0.3rem 0;
     display: flex;
-    
     align-items: center;
     border-bottom: 1px solid #ddd;
   }
   header .logo {
     font-family: 'Playfair Display', serif;
     font-size: 24px;
-    margin-right: 80px;
+    margin-right: 60px;
     font-weight: 600;
+    margin-left: 20px;
   }
 
   nav ul {
@@ -37,7 +38,7 @@
     
   }
   .hero {
-    background: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae?fit=crop&w=1400&q=80') no-repeat center center/cover;
+    background: url('https://cdn.yehaindia.com/wp-content/uploads/2020/07/stone-art-feature-750x410-1.jpg') no-repeat center center/cover;
     height: 80vh;
     display: flex;
     align-items: center;

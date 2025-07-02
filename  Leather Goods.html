@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Leather Goods - BazaarBytes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #fdfdfd;
+        }
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .product-price {
+            color: #d4a373;
+            font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .details-link {
+            display: inline-block;
+            padding: 8px 15px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .details-link:hover {
+            background-color: #45a049;
+        }
+        .notification {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BazaarBytes</div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index2.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+              <!--  <li><a href="artisans.html">Artisans</a></li>
+                <li><a href="sustainability.html">Sustainability</a></li> -->
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact Info.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Artisan Leather Goods</h1>
+        <div class="product-grid" id="artisan-leather-goods-grid">
+            <!-- Products will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <footer>
+        © 2025 TradeCommerce. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProductsByCategory('Artisan Leather Goods', 'artisan-leather-goods-grid');
+        });
+
+        async function fetchProductsByCategory(category, gridId) {
+            try {
+                const response = await fetch(`/api/products/${encodeURIComponent(category)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const products = await response.json();
+                if (!Array.isArray(products)) {
+                    throw new Error('Invalid data format: expected an array');
+                }
+                displayProducts(products, gridId);
+            } catch (error) {
+                console.error('Failed to fetch products:', error.message);
+                // Fallback to hardcoded data without notification
+                const fallbackProducts = [
+                    { name: 'Handmade Wallet', price: 1200, imagePath: 'https://i.pinimg.com/736x/e3/ff/d1/e3ffd19f1b1281fcb84a3c5b9fb38ae0.jpg', description: 'Crafted leather wallet from Italy.' },
+                    { name: 'Sandals', price: 4500, imagePath: 'https://i.pinimg.com/736x/2f/4c/9f/2f4c9f8ea78eb7a0a6dccb18efb0fab2.jpg', description: 'Moroccan-style leather sandals.' },
+                    { name: 'Leather Belt', price: 1400, imagePath: 'https://i.pinimg.com/736x/13/b8/88/13b88889e372644f8808d3c9152529e9.jpg', description: 'Premium belt from Mexico.' },
+                    { name: 'Journal', price: 1500, imagePath: 'https://i.pinimg.com/736x/2e/d6/a7/2ed6a76120446b009643dfbdada1b2e6.jpg', description: 'Hand-stitched leather journal from India.' },
+                    { name: 'Leather Bag', price: 2500, imagePath: 'https://i.pinimg.com/736x/be/30/63/be3063a3f616be63441570dde17fbfda.jpg', description: 'Durable leather bag supporting slow fashion.',  detailslink:'Leather Bag.html' }
+                ];
+                displayProducts(fallbackProducts, gridId);
+            }
+        }
+
+        function displayProducts(products, gridId) {
+            const productGrid = document.getElementById(gridId);
+            productGrid.innerHTML = '';
+
+            if (products.length === 0) {
+                productGrid.innerHTML = '<p>No Artisan Leather Goods available yet.</p>';
+                return;
+            }
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('product-image-container');
+                const image = document.createElement('img');
+                image.src = product.imagePath || 'images/placeholder.jpg'; // Fallback image
+                image.alt = product.name || 'Artisan Leather Good';
+                image.classList.add('product-image');
+                image.onerror = () => { image.src = 'images/placeholder.jpg'; }; // Handle image load failure
+                imageContainer.appendChild(image);
+
+                const info = document.createElement('div');
+                info.classList.add('product-info');
+                const title = document.createElement('h3');
+                title.classList.add('product-title');
+                title.textContent = product.name || 'Unnamed Leather Good';
+                const price = document.createElement('p');
+                price.classList.add('product-price');
+                price.textContent = `₹${product.price || 0}`;
+                const description = document.createElement('p');
+                description.classList.add('product-description');
+                description.textContent = product.description || 'Durable premium leather item';
+                const detailsLink = document.createElement('a');
+                detailsLink.href = product.detailslink || '#'; // Dynamic link
+                detailsLink.classList.add('details-link');
+                detailsLink.textContent = 'Details';
+                detailsLink.target = '_blank';
+
+                info.appendChild(title);
+                info.appendChild(price);
+                info.appendChild(description);
+                info.appendChild(detailsLink);
+
+                productCard.appendChild(imageContainer);
+                productCard.appendChild(info);
+
+                productGrid.appendChild(productCard);
+            });
+        }
+    </script>
+</body>
+</html>

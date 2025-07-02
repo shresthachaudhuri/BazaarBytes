@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Natural Skincare - BazaarBytes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .product-card { border: 1px solid #eee; border-radius: 6px; overflow: hidden; background-color: #fdfdfd; cursor: pointer; transition: transform 0.2s; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .product-image-container { width: 100%; height: 200px; overflow: hidden; }
+        .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .product-image:hover { transform: scale(1.05); }
+        .product-info { padding: 15px; text-align: center; }
+        .product-title { font-weight: bold; margin-bottom: 5px; color: #333; }
+        .product-price { color: #d4a373; font-weight: bold; }
+        h1 { text-align: center; margin-bottom: 30px; color: #333; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BazaarBytes</div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index2.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Traditional Natural Skincare</h1>
+        <div class="product-grid" id="traditional-natural-skincare-grid"></div>
+    </div>
+
+    <footer>&copy; 2025 TradeCommerce. All rights reserved.</footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProductsByCategory('Traditional Natural Skincare', 'traditional-natural-skincare-grid');
+        });
+
+        async function fetchProductsByCategory(category, gridId) {
+            try {
+                const response = await fetch(`/api/products/${encodeURIComponent(category)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const products = await response.json();
+                displayProducts(products, gridId);
+            } catch (error) {
+                console.error('Could not fetch products:', error);
+                document.getElementById(gridId).innerHTML = '<p>Could not load products for this category.</p>';
+            }
+        }
+
+        function displayProducts(products, gridId) {
+            const productGrid = document.getElementById(gridId);
+            productGrid.innerHTML = '';
+            if (products.length === 0) {
+                productGrid.innerHTML = '<p>No Traditional Natural Skincare products available yet.</p>';
+                return;
+            }
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.onclick = () => window.location.href = `buy-product.html?id=${product._id}`;
+                productCard.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${product.imagePath}" alt="${product.name}" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">₹${product.price}</p>
+                    </div>
+                `;
+                productGrid.appendChild(productCard);
+            });
+        }
+    </script>
+</body>
+</html>
